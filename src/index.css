@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .AuthButtons {
+    @apply flex justify-center px-1 lg:px-4 lg:py-1 cursor-pointer hover:text-white  rounded-md text-gray-200 font-semibold;
+  }
+  .NavItems {
+    @apply p-1 items-center text-gray-300 cursor-pointer hover:text-gray-100 text-sm;
+  }
+  .inputIcon {
+    @apply hidden sm:flex items-center p-2 space-x-1 hover:text-green-400 justify-center cursor-pointer;
+  }
+  .w3Icons {
+    @apply h-8 px-4 hover:text-gray-500 text-gray-400
+    hover:bg-gray-300 cursor-pointer rounded-none;
+  }
+
+  .fieldInputs {
+    @apply my-2 px-4 py-2 outline-none bg-gray-50;
+  }
+  .actionButtons {
+    @apply text-white p-2 mt-2 w-1/2 mx-1 cursor-pointer;
+  }
+
+  .ecButtons {
+    @apply p-1 text-xs px-2  md:px-4 py-2 md:py-3 text-gray-50 cursor-pointer rounded-sm transform hover:scale-105;
+  }
+
+  .ecInputs {
+    @apply w-full rounded-sm outline-none p-2 mt-5;
+  }
+  .headers {
+    @apply hover:bg-gray-200 rounded-sm p-2 text-xs sm:text-sm md:text-lg;
+  }
+}

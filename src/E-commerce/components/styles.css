@@ -1,0 +1,20 @@
+@layer components {
+  .inputErrorMsg {
+    @apply flex text-red-500 mt-1;
+  }
+  .outlineInputError {
+    @apply border border-red-500;
+  }
+  .shopHeaders {
+    @apply hover:bg-gray-200 p-1 rounded-sm sm:p-2 text-xs sm:text-lg;
+  }
+  .checkoutHeaders {
+    @apply flex justify-center cursor-pointer transform hover:scale-105;
+  }
+  .checkoutItemContent {
+    @apply flex justify-center;
+  }
+  .dingBagHover {
+    @apply cursor-pointer transform hover:scale-125;
+  }
+}
