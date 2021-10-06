@@ -20,10 +20,16 @@ export const removeCartItem = (item) => {
   };
 };
 
-export const clearItemFromCart = (item) => {
+export const removeItemFromCartWithQuantity = (item) => {
   return {
-    type: CART_ACTION.CLEAR_ITEM_FROM_CART,
+    type: CART_ACTION.REMOVE_ITEM_FROM_CART_WITH_QUANTITY,
     payload: item.id,
+  };
+};
+
+export const clearCartItems = () => {
+  return {
+    type: CART_ACTION.CLEAR_CART_ITEMS,
   };
 };
 

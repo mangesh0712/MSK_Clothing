@@ -1,5 +1,5 @@
 import { CART_ACTION } from "./cartActionTypes";
-import { addItemToCart,removeItemFromCart } from "./cart.utils";
+import { addItemToCart, removeItemFromCart } from "./cart.utils";
 
 const INITIAL_STATE = {
   hidden: true,
@@ -31,7 +31,7 @@ export const cartReducer = (state = INITIAL_STATE, { type, payload }) => {
         ...state,
         cartItems: removeItemFromCart(state.cartItems, payload),
       };
-    case CART_ACTION.CLEAR_ITEM_FROM_CART:
+    case CART_ACTION.REMOVE_ITEM_FROM_CART_WITH_QUANTITY:
       return {
         ...state,
         cartItems: state.cartItems.filter((item) => item.id !== payload),
@@ -40,6 +40,12 @@ export const cartReducer = (state = INITIAL_STATE, { type, payload }) => {
       return {
         ...state,
         cartCount: state.cartCount + 1,
+      };
+    case CART_ACTION.CLEAR_CART_ITEMS:
+      return {
+        ...state,
+        cartItems: [],
+        cartCount: 0,
       };
     case CART_ACTION.REMOVE_CART_COUNT:
       if (payload) {

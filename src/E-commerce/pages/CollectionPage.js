@@ -11,10 +11,10 @@ function CollectionPage() {
   return (
     <div className="m-3 p-1">
       <h1 className="font-serif text-center  font-black mb-5 text-lg">
-        {collectionObj.title.toUpperCase()}
+        {collectionObj?.title.toUpperCase()}
       </h1>
       <div className="flex items-center flex-wrap">
-        {collectionObj.items
+        {collectionObj?.items
           // .filter((item, idx) => idx < 4)
           .filter((item, idx) => idx)
           .map((item) => (

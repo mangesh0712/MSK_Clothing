@@ -1,5 +1,6 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import logger from "redux-logger";
+import thunk from "redux-thunk";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
@@ -14,7 +15,7 @@ const persistConfig = {
   whitelist: ["cart", "user"],
 };
 
-const middlewares = [logger];
+const middlewares = [logger, thunk];
 
 const reducers = combineReducers({
   user: userReducer,

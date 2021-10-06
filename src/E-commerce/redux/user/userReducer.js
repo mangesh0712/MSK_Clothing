@@ -2,6 +2,7 @@ import { USER_ACTION } from "./userActionTypes";
 
 const intState = {
   currentUser: null,
+  isAuth: false,
 };
 
 export const userReducer = (state = intState, { type, payload }) => {
@@ -10,12 +11,14 @@ export const userReducer = (state = intState, { type, payload }) => {
       return {
         ...state,
         currentUser: payload,
+        isAuth: true,
       };
 
     case USER_ACTION.REMOVE_CURRENT_USER:
       return {
         ...state,
         currentUser: null,
+        isAuth: false,
       };
 
     default:

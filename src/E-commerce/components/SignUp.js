@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { BellIcon, CheckIcon } from "@heroicons/react/solid";
+import { useHistory } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
@@ -18,16 +18,24 @@ const schema = yup.object().shape({
 
 function SignUp() {
   const [alertObj, setAlertObject] = useState({ showAlert: false });
+  const history = useHistory();
 
   const {
     register,
     handleSubmit,
-    watch,
     reset,
+    watch,
     formState: { errors, isDirty },
   } = useForm({ resolver: yupResolver(schema) });
 
-  useEffect(() => {}, [alertObj]);
+  console.log(watch("email"));
+  // useEffect(() => {}, [alertObj]);
+  useEffect(() => {
+    reset();
+    return () => {
+      reset();
+    };
+  }, []);
 
   const onSubmit = async (data) => {
     console.log(errors, "errors");
@@ -46,6 +54,8 @@ function SignUp() {
             showAlert: true,
           };
         });
+        reset();
+        history.push("/");
       }
     } catch (err) {
       setAlertObject((obj) => {
@@ -57,7 +67,6 @@ function SignUp() {
       });
     }
     /// clear input values on submit
-    reset();
   };
 
   return (
@@ -67,17 +76,7 @@ function SignUp() {
       </h1>
       <p className="text-md mb-8">SignUp with your email and password</p>
       {alertObj?.showAlert ? (
-        <Alert
-          {...alertObj}
-          onChangeShowAlert={setAlertObject}
-          icon={
-            alertObj.color === "red" ? (
-              <BellIcon className="h-8 text-gray-50 cursor-pointer hover:text-gray-300" />
-            ) : (
-              <CheckIcon className="h-8 text-gray-50 cursor-pointer hover:text-gray-300" />
-            )
-          }
-        />
+        <Alert {...alertObj} onChangeShowAlert={setAlertObject} />
       ) : (
         <form onSubmit={handleSubmit(onSubmit)}>
           <input

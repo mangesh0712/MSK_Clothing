@@ -11,7 +11,7 @@ import { removeCurrentUser } from "../redux/user/userActions";
 import { toggleCartHidden } from "../redux/cart/cartActions";
 
 function Header() {
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const isAuth = useSelector((state) => state.user.isAuth);
   const cartCount = useSelector((state) => state.cart.cartCount);
   const hideCart = useSelector((state) => state.cart.hidden);
   const dispatch = useDispatch();
@@ -38,16 +38,16 @@ function Header() {
         <Link to="/" className="ml-8 flex-grow md:flex-grow-0">
           <Logo></Logo>
         </Link>
-        {currentUser?.displayName ? (
+        {/* {isAuth?.displayName ? (
           <div className="hidden md:flex flex-grow  space-x-1 mb-1 pl-2 self-end">
             <UserIcon className="h-4" />
             <span className="flex items-end font-serif text-xs md:text-sm text-gray-500">
-              {currentUser?.displayName}
+              {isAuth?.displayName}
             </span>
           </div>
-        ) : (
-          <div className="flex flex-grow"></div>
-        )}
+        ) : ( */}
+        <div className="flex flex-grow"></div>
+        {/* )} */}
         <div className="flex items-center  md:space-x-3 cursor-pointer">
           <Link to="/shop" className="shopHeaders">
             SHOP
@@ -55,22 +55,25 @@ function Header() {
           <Link to="/shop" className="shopHeaders">
             CONTACT
           </Link>
-          {currentUser ? (
-            <div className="shopHeaders" onClick={onSignOut}>
-              SIGN OUT
-            </div>
-          ) : (
-            <Link
-              to="/signin"
-              className={`shopHeaders ${
-                location.pathname === "/signin" ? "hidden" : ""
-              }`}
-            >
-              SIGN IN
-            </Link>
-          )}
+          {
+            isAuth && (
+              <div className="shopHeaders" onClick={onSignOut}>
+                SIGN OUT
+              </div>
+            )
+            // <Link
+            //   to="/signin"
+            //   className={`shopHeaders ${
+            //     location.pathname === "/signin" ? "hidden" : ""
+            //   }`}
+            // >
+            //   SIGN IN
+            // </Link>
+          }
           <div
-            className="shopHeaders flex justify-center items-center"
+            className={`${
+              !isAuth && "invisible"
+            } shopHeaders flex justify-center items-center `}
             onClick={() => dispatch(toggleCartHidden())}
           >
             <ShoppingBagIcon className="h-10 text-gray-600" />

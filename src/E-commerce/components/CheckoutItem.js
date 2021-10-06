@@ -4,7 +4,7 @@ import {
   addCartItem,
   addCartCount,
   removeCartCount,
-  clearItemFromCart,
+  removeItemFromCartWithQuantity,
   removeCartItem,
 } from "../redux/cart/cartActions";
 
@@ -41,13 +41,13 @@ function CheckoutItem({ item }) {
         </span>
       </span>
       <span className="checkoutItemContent w-2/10 text-2xl font-light">
-        ${price}
+        &#8377;{price}
       </span>
       <div className="checkoutItemContent w-1.5/10 text-2xl font-light">
         <button
           className="text-2xl dingBagHover"
           onClick={() => {
-            dispatch(clearItemFromCart(item));
+            dispatch(removeItemFromCartWithQuantity(item));
             dispatch(removeCartCount(quantity));
           }}
         >

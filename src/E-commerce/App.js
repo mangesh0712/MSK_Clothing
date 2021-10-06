@@ -1,19 +1,22 @@
-import React, { useState, useEffect } from "react";
-import { Switch, Route, Link, Redirect, useHistory } from "react-router-dom";
+import React, { useEffect } from "react";
 import { addCurrentUser } from "./redux/user/userActions";
 import { useSelector, useDispatch } from "react-redux";
-
-import Homepage from "./pages/Homepage";
-import ShopPage from "./pages/ShopPage";
 import Header from "./components/Header";
-import Checkout from "./pages/Checkout";
-import SignInAndSignUp from "./pages/SignInAndSignUp";
+import Router from "./Router";
 
-import { auth, createUserProfileDocument } from "./firebase";
+// import { selectCollectionForPrerview } from "./redux/shop/shopSelector";
+
+import {
+  auth,
+  createUserProfileDocument,
+  addCollectionAndDocuments,
+} from "./firebase";
 
 function App() {
   const currentUser = useSelector((state) => state.user.currentUser);
   const dispatch = useDispatch();
+  // const state = useSelector((state) => state);
+  // const collectionsArray = selectCollectionForPrerview(state);
 
   let unSubscribeFromAuth = null;
 
@@ -30,9 +33,17 @@ function App() {
               ...snap.data(),
             })
           );
-         });
+        });
       }
     });
+    /// for adding new collections to the firestore
+
+    // addCollectionAndDocuments(
+    //   "collections",
+    //   collectionsArray.map(({ title, items }) =>{
+    //     return {title,items}
+    //   })
+    // );
     // Unsubscribe auth
     return () => {
       unSubscribeFromAuth();
@@ -42,20 +53,7 @@ function App() {
   return (
     <div>
       <Header />
-      <Switch>
-        <Route exact path="/">
-          {!currentUser ? <Redirect to="/signin" /> : <Homepage />}
-        </Route>
-        <Route path="/shop">
-          <ShopPage />
-        </Route>
-        <Route path="/signin">
-          {currentUser ? <Redirect to="/" /> : <SignInAndSignUp />}
-        </Route>
-        <Route exact path="/checkout">
-          <Checkout />
-        </Route>
-      </Switch>
+      <Router />
     </div>
   );
 }

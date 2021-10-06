@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { BellIcon } from "@heroicons/react/solid";
 import * as yup from "yup";
@@ -24,6 +25,8 @@ function SignIn() {
     formState: { errors, isDirty },
   } = useForm({ resolver: yupResolver(schema) });
 
+  const dispatch = useDispatch();
+
   let history = useHistory();
 
   const onSignIn = async (data) => {
@@ -31,7 +34,7 @@ function SignIn() {
 
     try {
       const { user } = await auth.signInWithEmailAndPassword(email, password);
-      // user && history.push("/");
+      user && history.push("/");
     } catch (err) {
       setAlertObj((obj) => {
         return {
@@ -47,7 +50,7 @@ function SignIn() {
   const onSignInWithGoogle = () => {
     signInWithGoogle()
       .then((result) => {
-        // history.push("/");
+        history.push("/");
       })
       .catch((err) => {
         // Handle Errors here.
